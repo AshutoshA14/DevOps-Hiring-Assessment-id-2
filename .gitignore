@@ -22,3 +22,59 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+
+# Terraform directories
+.terraform/
+
+# Local tfstate files
+*.tfstate
+*.tfstate.backup
+
+# Crash log files
+crash.log
+
+# Exclude any .tfvars files that are intended to be kept private
+*.auto.tfvars
+*.override.tfvars
+
+# Exclude sensitive information
+*.tfvars
+
+# Ignore any .terraformrc files
+.terraformrc
+
+# Terraform binary
+terraform
+
+# Terraform plugins directory
+.terraform/
+
+# Local cached files
+.terraform.d/
+
+# Exclude any lock files
+terraform.lock.hcl
+
+# AWS CLI configuration files
+.aws/
+aws*.ini
+
+# AWS CLI temporary files
+.aws-sso/
+.sso/
+
+# AWS CLI command history
+.boto
+.boto.*
+
+# Local AWS CLI cache
+.aws-cli/
+
+# Credentials file (contains sensitive information)
+credentials
+
+aws
+
+/awscliv2.zip
+
