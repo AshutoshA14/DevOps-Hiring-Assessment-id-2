@@ -1,4 +1,4 @@
-name: Build, Scan, and Push to ECR
+name: Build, Scan, and Push to AWS ECR 
 
 on:
   push:
