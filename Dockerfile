@@ -1,14 +1,14 @@
 # Base image for the spring boot application
-FROM eclipse-temurin:17-jre AS Builder
+FROM eclipse-temurin:17-jdk AS Builder
 
 WORKDIR /opt/app
 
 COPY /spring-boot-app /opt/app/
 
-RUN ./mvnw clean package
+RUN mvn clean package
 
 
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:17-jdk-alpine
 
 # Argument to reference Artifact path location
 ARG artifact=target/demo-0.0.1-SNAPSHOT.jar
