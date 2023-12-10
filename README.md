@@ -10,9 +10,10 @@ Creating a project in Spring Boot typically involves using a build tool like Mav
 
   To check java version installed into the system use the `java --version` command.
 
-  ** openjdk 17.0.9 2023-10-17 LTS
+  ```openjdk 17.0.9 2023-10-17 LTS
      OpenJDK Runtime Environment Microsoft-8552009 (build 17.0.9+8-LTS)
-     OpenJDK 64-Bit Server VM Microsoft-8552009 (build 17.0.9+8-LTS, mixed mode, sharing)**
+     OpenJDK 64-Bit Server VM Microsoft-8552009 (build 17.0.9+8-LTS, mixed mode, sharing)
+ ```
 
  ## Using Spring Initializr:
 
@@ -140,5 +141,5 @@ To build the image using Dockerfile The follwing are the steps needs to be follo
 - ** . ** this specify the path of your Dockerfile inside your github repo.
 
 ```
-docker build -t ** Path of your repository with repository name **:** Specify the Image version as per the convention followed by industry** .
+docker build -t Registry_name/image_name:image_tag .
 ```
