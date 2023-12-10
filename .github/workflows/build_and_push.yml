@@ -2,8 +2,9 @@ name: Build, Scan, and Push to AWS ECR
 
 on:
   push:
-    branches:
-      - 7-build-and-push-image-via-actions-workflow
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
