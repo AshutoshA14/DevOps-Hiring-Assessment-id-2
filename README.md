@@ -148,6 +148,143 @@ docker build -t Registry_name/image_name:image_tag .
 
 ## AWS ECR and IAM role setup
 
-### AWS ECR setup using bash script
+## AWS ECR setup using Terraform 
 
-Configure and 
+### Prerequisites
+
+1. **AWS CLI**: Make sure you have the AWS CLI installed and configured with the necessary credentials. You can install the AWS CLI by following the instructions [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
+
+2. **Terraform**: Install Terraform on your local machine. You can find installation instructions [here](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+).
+
+### Usage
+
+1. Created a directory for Terraform script:
+
+    ```
+    terraform_script
+    ```
+
+2. Change into the terraform_Script directory:
+
+    ```bash
+    cd <terraform_script directory>
+    ```
+
+3. Create a new file named `main.tf` and add the following content:
+
+    ```hcl
+    provider "aws" {
+      region = "us-east-1" # Set your desired AWS region
+    }
+
+    resource "aws_ecr_repository" "my_ecr_repository" {
+      name = "my-ecr-repository"
+
+      image_tag_mutability = "MUTABLE" # Can be "MUTABLE" or "IMMUTABLE"
+      scan_on_push         = true
+    }
+    '
+    ```
+    **Modify the above values as per requirement**
+
+  Also, configured **IAM ROLE with POLICY** to access the registry. For that look into the `main.tf` file which contains full configurations for the same.
+
+4. Create a `variables.tf` file to define all the variables used in terraform scripts.
+
+```
+variable "region" {
+  type = string
+}
+
+variable "profile_name" {
+  type = string
+}
+
+variable "account_id" {
+  type = list(string)
+}
+
+variable "ecr_repo_name" {
+  type = string
+}
+
+variable "image_tag_mutability" {
+  type = string
+}
+
+```
+4. Create a file named `terraform.tfvars` and add your variable values which is defined in `variables.tf` file.
+
+```region = "value to be passed"
+profile_name = "value to be passed"
+account_id = ["value to be passed"]
+ecr_repo_name = "value to be passed"
+image_tag_mutability = "value to be passed"
+
+```
+
+5. Initialize Terraform:
+
+    ```bash
+    terraform init
+    ```
+
+6. Apply the Terraform configuration:
+
+    ```bash
+    terraform apply --var-file=path to <tfvars file for value too be passed>
+    ```
+
+    Terraform will prompt you to confirm the changes. Type "yes" to proceed.
+
+7. After the apply command completes, you should see output indicating that the ECR repository has been created. You can find the registry URL in the output.
+
+## Cleanup
+
+To destroy the resources created by Terraform, you can use the following command:
+
+```bash
+terraform destroy --var-file=path to <tfvars file for value too be passed>
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+# Docker Image Scan and Push to ECR
+
+This GitHub Actions workflow demonstrates how to build a Docker image, scan it for vulnerabilities using Trivy, and push it to Amazon Elastic Container Registry (ECR). Caching is used to optimize the workflow by storing and reusing Docker layers between workflow runs.
+
+## Workflow Overview
+
+1. **Build Docker Image:** The workflow checks out the repository and builds the Docker image. Docker layers are cached to speed up subsequent builds.
+2. **Login to ECR:** AWS CLI is used to authenticate with the ECR registry.
+3. **Build and Push to ECR:** The Docker image is tagged and pushed to the specified ECR registry.
+
+## Prerequisites
+
+- [GitHub Actions](https://github.com/features/actions)
+- [AWS CLI](https://aws.amazon.com/cli/)
+- [Docker](https://www.docker.com/get-started)
+
+## Secrets
+
+Make sure to configure the following secrets in your GitHub repository settings:
+
+- `AWS_DEFAULT_REGION`: AWS default region
+- `AWS_ACCESS_KEY_ID`: AWS Access Key ID with ECR push permissions.
+- `AWS_SECRET_ACCESS_KEY`: AWS Secret Access Key corresponding to the access key ID.
+- `ECR_REPOSITORY`: AWS ECR Repository url 
+
+
+## Usage
+
+1. Copy the content of the provided GitHub Actions workflow file (`.github/workflows/build_and_push.yml`) into your repository.
+2. Configure the necessary parameters such as `<your-region>`, `<your-account-id>`, and `my-container-image`.
+3. Set up the required secrets in your GitHub repository settings.
+4. Commit and push your changes to trigger the workflow.
+
+## Notes
+
+- Adjust the caching strategy based on your specific Dockerfile and dependency setup.
+
+
+
