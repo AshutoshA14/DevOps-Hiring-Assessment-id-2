@@ -1,5 +1,5 @@
 # Base image for the spring boot application
-FROM eclipse-temurin:17-jdk AS Builder
+FROM maven:3.8.4 AS Builder
 
 WORKDIR /opt/app
 
