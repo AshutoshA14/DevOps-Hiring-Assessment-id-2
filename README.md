@@ -143,3 +143,11 @@ To build the image using Dockerfile The follwing are the steps needs to be follo
 ```
 docker build -t Registry_name/image_name:image_tag .
 ```
+
+#-------------------------------------------------------------------------------------------------------------------------------
+
+## AWS ECR and IAM role setup
+
+### AWS ECR setup using bash script
+
+Configure and 
