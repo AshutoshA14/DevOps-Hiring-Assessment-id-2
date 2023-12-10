@@ -148,6 +148,6 @@ docker build -t Registry_name/image_name:image_tag .
 
 ## AWS ECR and IAM role setup
 
-### AWS ECR setup using bash script
+### AWS ECR setup using Terraform 
 
-Configure and 
+The terraform CLI installtion 
