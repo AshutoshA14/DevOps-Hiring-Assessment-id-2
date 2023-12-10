@@ -247,6 +247,8 @@ To destroy the resources created by Terraform, you can use the following command
 ```bash
 terraform destroy --var-file=path to <tfvars file for value too be passed>
 
+```
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 ## Workflow Overview
