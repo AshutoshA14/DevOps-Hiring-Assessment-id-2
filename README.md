@@ -249,42 +249,98 @@ terraform destroy --var-file=path to <tfvars file for value too be passed>
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-# Docker Image Scan and Push to ECR
-
-This GitHub Actions workflow demonstrates how to build a Docker image, scan it for vulnerabilities using Trivy, and push it to Amazon Elastic Container Registry (ECR). Caching is used to optimize the workflow by storing and reusing Docker layers between workflow runs.
-
 ## Workflow Overview
 
-1. **Build Docker Image:** The workflow checks out the repository and builds the Docker image. Docker layers are cached to speed up subsequent builds.
-2. **Login to ECR:** AWS CLI is used to authenticate with the ECR registry.
-3. **Build and Push to ECR:** The Docker image is tagged and pushed to the specified ECR registry.
+# Build, Scan, and Push to AWS ECR
+
+This GitHub Actions workflow is designed to build a Docker image, scan it, and then push it to Amazon Elastic Container Registry (ECR) when changes are pushed to the "main" branch or when a pull request is made against the "main" branch.
+
+## Workflow Steps
+
+1. **Checkout Repository:**
+   Uses the actions/checkout action to clone the repository into the GitHub Actions runner.
+
+2. **Configure AWS Credentials:**
+  - Uses the aws-actions/configure-aws-credentials action to set up AWS credentials for the workflow.
+  -  Requires the following GitHub Secrets:
+  - **AWS_ACCESS_KEY_ID:** AWS access key ID.
+  - **AWS_SECRET_ACCESS_KEY:** AWS secret access key.
+  - **AWS_DEFAULT_REGION:** AWS region.
+
+3. **Login to AWS ECR:**
+  - Uses the aws-actions/amazon-ecr-login action to authenticate Docker to the Amazon ECR registry.
+  - Outputs the ECR registry URL for later use.
+
+4. **Build, Tag, and Push Docker Image to Amazon ECR**
+  - Uses Docker commands to perform the following tasks:
+  - Prunes the Docker system to remove unused data.
+  - Builds a Docker image with the tag as the GitHub commit SHA.
+  -   Pushes the Docker image to the specified ECR repository in the specified AWS region.
+
+
+## Workflow Triggers
+
+The workflow is triggered on:
+
+- **Push Event:** Triggered when changes are pushed to the "main" branch.
+- **Pull Request Event**  Triggered when a pull request is opened or updated for the "main" branch.
+
 
 ## Prerequisites
 
-- [GitHub Actions](https://github.com/features/actions)
-- [AWS CLI](https://aws.amazon.com/cli/)
-- [Docker](https://www.docker.com/get-started)
+Before using this workflow, ensure the following GitHub Secrets are set in your repository:
 
-## Secrets
-
-Make sure to configure the following secrets in your GitHub repository settings:
-
-- `AWS_DEFAULT_REGION`: AWS default region
-- `AWS_ACCESS_KEY_ID`: AWS Access Key ID with ECR push permissions.
-- `AWS_SECRET_ACCESS_KEY`: AWS Secret Access Key corresponding to the access key ID.
-- `ECR_REPOSITORY`: AWS ECR Repository url 
-
+- `AWS_ACCESS_KEY_ID`: AWS access key ID.
+- `AWS_SECRET_ACCESS_KEY`: AWS secret access key.
+- `AWS_DEFAULT_REGION`: AWS region.
+- `ECR_REPOSITORY`: The name of your ECR repository.
 
 ## Usage
 
-1. Copy the content of the provided GitHub Actions workflow file (`.github/workflows/build_and_push.yml`) into your repository.
-2. Configure the necessary parameters such as `<your-region>`, `<your-account-id>`, and `my-container-image`.
-3. Set up the required secrets in your GitHub repository settings.
-4. Commit and push your changes to trigger the workflow.
+1. Set up the required GitHub Secrets in your repository settings.
+2. Copy and paste the provided workflow YAML code into your `.github/workflows/main.yml` file.
+
+## Example Workflow YAML
+
+```yaml
+name: Build, Scan, and Push to AWS ECR 
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    
+    - name: Configure AWS Credentials Action for GitHub Actions
+      uses: aws-actions/configure-aws-credentials@v4.0.1
+      with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+  
+    - name: Login to AWS ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build, tag, and push docker image to Amazon ECR
+      env:
+        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        REPOSITORY: ${{ secrets.ECR_REPOSITORY}}
+        IMAGE_TAG: ${{ github.sha }}
+      run: |
+          docker system prune -a
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+```
 
 ## Notes
 
 - Adjust the caching strategy based on your specific Dockerfile and dependency setup.
-
-
-
