@@ -1,0 +1,45 @@
+name: Build, Test and Generate Artifact for the Spring Boot Application
+
+on: 
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+    
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+        
+            - name: SetUp JDK 
+              uses: actions/setup-java@v3
+              with:
+                java-version: '17'
+                distribution: 'temurin'
+                cache: maven
+
+            - name: Build the spring boot application
+              run: mvn -f spring-boot-app/pom.xml clean package
+              
+            - name: Copying the artifact to staging directory
+              run: mkdir staging && cp spring-boot-app/target/*.jar staging
+
+
+            - name: Testing the application
+              run: mvn -f spring-boot-app/pom.xml clean test
+              
+
+            - name: Upload a Build Artifact
+              uses: actions/upload-artifact@v4.0.0
+              with:
+                name: demo-0.0.1-SNAPSHOT.jar
+                path: staging
+
+
+          
+
+            
+            
