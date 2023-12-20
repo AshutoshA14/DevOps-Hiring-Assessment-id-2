@@ -19,13 +19,14 @@ jobs:
               with:
                 java-version: '17'
                 distribution: 'temurin'
+                cache: maven
 
-            - name: Change directory to where pom.xml is located
-              run: cd spring-boot-app
-          
-
-            - name: Maven build
+            - name: Build the spring boot application
               run: mvn -f spring-boot-app/pom.xml clean package
+
+
+            - name: Testing the application
+              run: mvn clean test
               
 
 
