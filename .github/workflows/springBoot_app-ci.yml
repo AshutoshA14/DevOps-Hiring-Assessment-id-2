@@ -1,0 +1,29 @@
+name: Build, Test and Generate Artifact for the Spring Boot Application
+
+on: 
+  push:
+    branches: [ "9-ci-workflow-for-spring-boot-app" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+    
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+        
+            - name: SetUp JDK 
+              uses: actions/setup-java@v4
+              with:
+                distribution: 'temurin' # See 'Supported distributions' for available options
+                java-version: '21'
+                cache: maven
+            
+            - name: Maven build
+              run: mvn clean package
+
+
+
+            
