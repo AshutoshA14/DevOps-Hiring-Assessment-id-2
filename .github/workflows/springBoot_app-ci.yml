@@ -2,9 +2,9 @@ name: Build, Test and Generate Artifact for the Spring Boot Application
 
 on: 
   push:
-    branches: [ "9-ci-workflow-for-spring-boot-app" ]
-#   pull_request:
-#     branches: [ "main" ]
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
     build:
@@ -38,7 +38,7 @@ jobs:
                 name: demo-0.0.1-SNAPSHOT.jar
                 path: staging
 
-                
+
           
 
             
