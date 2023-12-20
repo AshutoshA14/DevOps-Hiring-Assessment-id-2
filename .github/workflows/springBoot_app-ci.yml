@@ -23,11 +23,14 @@ jobs:
 
             - name: Build the spring boot application
               run: mvn -f spring-boot-app/pom.xml clean package
+              
+            - name: Copying the artifact to staging directory
+              run: mkdir staging && cp target/*.jar staging
 
 
             - name: Testing the application
               run: mvn -f spring-boot-app/pom.xml clean test
               
 
-
+            
             
