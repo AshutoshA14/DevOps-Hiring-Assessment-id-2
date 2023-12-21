@@ -79,8 +79,13 @@ jobs:
               with:
                   image-ref: '${{ env.REPOSITORY }}:${{ github.sha }}'
                   scan-type: 'fs'
+                  exit-code: '1'
                   scan-ref: '.'
-                  trivy-config: trivy.yaml
+                  ignore-unfixed: true
+                  vuln-type: 'os,library'
+                  format: 'template'
+                  severity: 'CRITICAL,HIGH'
+                  
             
             - name: Push Docker Image
               run: |
