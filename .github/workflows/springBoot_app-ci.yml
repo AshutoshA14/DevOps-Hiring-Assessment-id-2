@@ -78,7 +78,7 @@ jobs:
               IMAGE_TAG: ${{ github.sha }}
             run: |
                 docker system prune -a
-                docker build -t $REPOSITORY:$IMAGE_TAG -f ../Dockerfile .
+                docker build -t $REPOSITORY:$IMAGE_TAG -f Dockerfile .
                 docker push $REPOSITORY:$IMAGE_TAG
                  
            
