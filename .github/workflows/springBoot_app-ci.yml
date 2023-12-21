@@ -82,6 +82,7 @@ jobs:
                   exit-code: '1'
                   scan-ref: '.'
                   ignore-unfixed: true
+                  format: json
                   vuln-type: 'os,library'
                   severity: 'CRITICAL,HIGH'
                   
