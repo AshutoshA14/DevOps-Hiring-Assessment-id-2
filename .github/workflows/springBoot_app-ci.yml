@@ -48,40 +48,29 @@ jobs:
                 path: staging
 
             
-          
-
-            
-    build-image:
-      name: build image
-      runs-on: ubuntu-latest
-      needs: build-project
-
-      steps:
-          - name: Download a Build Artifact
-            uses: actions/download-artifact@v4.1.0
-            with: 
-               name: demo-0.0.1-SNAPSHOT.jar
-               path: staging
-            
-          - name: Docker Setup Buildx
-            uses: docker/setup-buildx-action@v3.0.0
-          
-          - name: Docker Login
-            uses: docker/login-action@v3.0.0
-            with:
-              username: ${{ secrets.DOCKERHUB_USERNAME }}
-              password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
-          - name: Build and push Docker images
-            env: 
-              REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
-              IMAGE_TAG: ${{ github.sha }}
-            run: |
-                cd /workspaces/DevOps-Hiring-Assessment-id-2/Dockerfile
-                ls 
-                docker build -t $REPOSITORY:$IMAGE_TAG .
-                docker push $REPOSITORY:$IMAGE_TAG
-                 
+            - name: Download a Build Artifact
+              uses: actions/download-artifact@v4.1.0
+              with: 
+                   name: demo-0.0.1-SNAPSHOT.jar
+                   path: staging
+                
+            - name: Docker Setup Buildx
+              uses: docker/setup-buildx-action@v3.0.0
+              
+            - name: Docker Login
+              uses: docker/login-action@v3.0.0
+              with:
+                  username: ${{ secrets.DOCKERHUB_USERNAME }}
+                  password: ${{ secrets.DOCKERHUB_TOKEN }}
+              
+            - name: Build and push Docker images
+              env: 
+                  REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
+                  IMAGE_TAG: ${{ github.sha }}
+              run: |
+                    docker build -t $REPOSITORY:$IMAGE_TAG .
+                    docker push $REPOSITORY:$IMAGE_TAG
+                     
            
 
     
