@@ -75,12 +75,10 @@ jobs:
             env: 
               REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
               IMAGE_TAG: ${{ github.sha }}
-            with:
-              context: spring-boot-app/.
             run: |
-               docker system prune -a
-               docker build -t $REPOSITORY:$IMAGE_TAG .
-               docker push $REPOSITORY:$IMAGE_TAG
+                docker system prune -a
+                docker build -t $REPOSITORY:$IMAGE_TAG .
+                docker push $REPOSITORY:$IMAGE_TAG
                  
            
 
