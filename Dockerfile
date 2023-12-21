@@ -1,17 +1,17 @@
-# Base image for the spring boot application
-FROM maven:3.8.4 AS Builder
+# # Base image for the spring boot application
+# FROM maven:3.8.4 AS Builder
 
-WORKDIR /opt/app
+# WORKDIR /opt/app
 
-COPY /spring-boot-app /opt/app
+# COPY /spring-boot-app /opt/app
 
-RUN mvn clean package
+# RUN mvn clean package
 
 
 FROM eclipse-temurin:17-jdk-alpine
 
 # Argument to reference Artifact path location
-ARG artifact=/opt/app/target/demo-0.0.1-SNAPSHOT.jar
+ARG artifact=staging/demo-0.0.1-SNAPSHOT.jar
 
 # Setting working directory for the container image
 WORKDIR /opt/app
