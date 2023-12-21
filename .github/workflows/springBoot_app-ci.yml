@@ -77,7 +77,7 @@ jobs:
               REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
               IMAGE_TAG: ${{ github.sha }}
             run: |
-                docker system prune -a
+                
                 docker build -t $REPOSITORY:$IMAGE_TAG -f /workspaces/DevOps-Hiring-Assessment-id-2/Dockerfile .
                 docker push $REPOSITORY:$IMAGE_TAG
                  
