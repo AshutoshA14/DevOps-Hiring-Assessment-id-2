@@ -1,10 +1,17 @@
 name: Build, Test and Generate Artifact for the Spring Boot Application
 
 on: 
-  push:
-    branches: [ "12-image-creation-with-spring-boot-artifact" ]
+  # push:
+  #   branches: [ "12-image-creation-with-spring-boot-artifact" ]
   # pull_request:
   #   branches: [ "main"]
+
+  workflow_dispatch:
+    inputs:
+      myVersion:
+       description: 'Input Version'
+      myValues:
+       description: 'Input Values'
 
 jobs:
     build:
@@ -64,7 +71,6 @@ jobs:
               password: ${{ secrets.DOCKERHUB_TOKEN }}
           
           - name: Build and push Docker images
-            uses: docker/build-push-action@v5.1.0
             env: 
               REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
               IMAGE_TAG: ${{ github.sha }}
