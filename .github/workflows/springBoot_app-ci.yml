@@ -78,7 +78,7 @@ jobs:
               IMAGE_TAG: ${{ github.sha }}
             run: |
                 
-                docker build -t $REPOSITORY:$IMAGE_TAG -f /workspaces/DevOps-Hiring-Assessment-id-2/Dockerfile .
+                docker build -t $REPOSITORY:$IMAGE_TAG .
                 docker push $REPOSITORY:$IMAGE_TAG
                  
            
