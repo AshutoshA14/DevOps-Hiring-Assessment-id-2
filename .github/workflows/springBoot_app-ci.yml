@@ -77,6 +77,7 @@ jobs:
               REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
               IMAGE_TAG: ${{ github.sha }}
             run: |
+                cd /workspaces/DevOps-Hiring-Assessment-id-2
                 ls 
                 docker build -t $REPOSITORY:$IMAGE_TAG .
                 docker push $REPOSITORY:$IMAGE_TAG
