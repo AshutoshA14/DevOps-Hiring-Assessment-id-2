@@ -82,9 +82,9 @@ jobs:
                   exit-code: '1'
                   scan-ref: '.'
                   ignore-unfixed: true
-                  format: 'template'
-                  template: '@/contrib/sarif.tpl'
-                  output: 'trivy-results.sarif'
+                  format: table
+                  # template: '@/contrib/sarif.tpl'
+                  # output: 'trivy-results.sarif'
                   vuln-type: 'os,library'
                   severity: 'CRITICAL,HIGH'
             
