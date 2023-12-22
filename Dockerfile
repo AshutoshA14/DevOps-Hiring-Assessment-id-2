@@ -8,7 +8,7 @@
 # RUN mvn clean package
 
 
-FROM eclipse-temurin:17-jdk-alpine
+FROM eclipse-temurin:17.0.9_9-jdk-focal
 
 # Argument to reference Artifact path location
 ARG artifact=staging/demo-0.0.1-SNAPSHOT.jar
