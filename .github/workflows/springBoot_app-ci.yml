@@ -45,7 +45,7 @@ jobs:
                   path: ~/.m2/repository
                   key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
                   restore-keys: |
-                      ${{ runner.os }}-maven
+                      ${{ runner.os }}-maven-
               
             - name: Copying the artifact to staging directory
               run: mkdir staging && cp spring-boot-app/target/*.jar staging
