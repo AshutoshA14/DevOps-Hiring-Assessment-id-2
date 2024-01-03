@@ -1,18 +1,18 @@
 name: Build, Test and Generate Artifact for the Spring Boot Application
 
 on: 
-  push:
-    branches: [ "12-image-creation-with-spring-boot-artifact" ]
+  # push:
+  #   branches: [ "12-image-creation-with-spring-boot-artifact" ]
   # pull_request:
   #   branches: [ "main"]
 
   
-  # workflow_dispatch:
-  #   inputs:
-  #     myVersion:
-  #      description: 'Input Version'
-  #     myValues:
-  #      description: 'Input Values'
+  workflow_dispatch:
+    inputs:
+      myVersion:
+       description: 'Input Version'
+      myValues:
+       description: 'Input Values'
 
 
 env: 
