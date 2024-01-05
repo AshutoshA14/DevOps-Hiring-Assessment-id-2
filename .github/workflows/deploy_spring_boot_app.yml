@@ -2,11 +2,11 @@ name: Deployment of Spring boot Application
 
 on: 
     workflow_dispatch:
-        inputs:
-            appVersion: 
-             description: 'Input Version'
-            versionValue: 
-             description: 'Input Values'
+      inputs:
+        appVersion: 
+          description: 'Input Version'
+        versionValue: 
+          description: 'Input Values'
 
 env: 
      REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
