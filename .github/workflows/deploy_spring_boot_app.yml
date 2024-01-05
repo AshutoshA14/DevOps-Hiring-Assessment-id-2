@@ -14,7 +14,7 @@ on:
 
 env: 
      REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
-     IMAGE_TAG: $$ {{ secrets.IMG_TAG_SB_APP }}
+     IMAGE_TAG: ${{ secrets.IMG_TAG_SB_APP }}
 
 
 jobs:
