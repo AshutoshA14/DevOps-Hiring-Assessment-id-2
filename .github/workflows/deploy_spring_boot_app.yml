@@ -1,12 +1,16 @@
 name: Deployment of Spring boot Application
 
 on: 
-    workflow_dispatch:
-      inputs:
-        appVersion: 
-          description: 'Input Version'
-        versionValue: 
-          description: 'Input Values'
+    push:
+        branches: [ "12-image-creation-with-spring-boot-artifact" ]
+
+
+    # workflow_dispatch:
+    #   inputs:
+    #     appVersion: 
+    #       description: 'Input Version'
+    #     versionValue: 
+    #       description: 'Input Values'
 
 env: 
      REPOSITORY: ${{ secrets.DOCKERHUB_REPOSITORY }}
