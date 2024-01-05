@@ -4,7 +4,6 @@ on:
     push:
         branches: [ "12-image-creation-with-spring-boot-artifact" ]
 
-
     # workflow_dispatch:
     #   inputs:
     #     appVersion: 
@@ -32,7 +31,7 @@ jobs:
             
             - name: Check Login Successfull or not
               run: |
-                  docker pull ${{ env.REPOSITORY }}:${{ env.IMAGE_TAG}}
+                  docker pull ${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
                   echo "Login to Dockerhub is Successfull"
             
 
