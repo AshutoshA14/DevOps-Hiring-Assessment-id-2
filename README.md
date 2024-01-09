@@ -1,4 +1,4 @@
-# DevOps-Hiring-Assessment-id-2
+# DevOps-Hiring-Assessment-id-2  [![Build, Scan, and Push to AWS ECR](https://github.com/AshutoshA14/DevOps-Hiring-Assessment-id-2/actions/workflows/build_and_push.yml/badge.svg)](https://github.com/AshutoshA14/DevOps-Hiring-Assessment-id-2/actions/workflows/build_and_push.yml)
 
 ## Hello World Spring Boot Application
 
