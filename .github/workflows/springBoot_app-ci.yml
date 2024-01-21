@@ -18,7 +18,7 @@ on:
 jobs:
     build-project:
         name: build project
-        runs-on: "spring_boot"
+        runs-on: self-hosted
     
         steps:
             - name: Checkout repository
