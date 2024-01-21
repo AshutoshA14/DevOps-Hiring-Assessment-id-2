@@ -18,7 +18,7 @@ on:
 jobs:
     build-project:
         name: build project
-        runs-on: spring_boot
+        runs-on: "spring_boot"
     
         steps:
             - name: Checkout repository
