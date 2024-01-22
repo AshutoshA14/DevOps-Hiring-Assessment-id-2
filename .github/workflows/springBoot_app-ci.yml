@@ -19,8 +19,7 @@ jobs:
     build-project:
         name: build project
         runs-on: self-hosted
-    
-        
+      
         steps:
             - name: Checkout repository
               uses: actions/checkout@v2
